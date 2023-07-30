@@ -27,5 +27,9 @@
 		"typescript": "^5.0.0",
 		"vite": "^4.4.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"p5": "^1.7.0",
+		"p5js-renderer-svelte": "^0.0.3"
+	}
 }
