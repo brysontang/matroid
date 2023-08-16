@@ -2,21 +2,29 @@
 	// @ts-ignore
 	import { P5Renderer } from 'p5js-renderer-svelte';
 
+	let width = 100;
+	let height = 100;
 	let sketch = `
     function setup() {
-      createCanvas(400, 400);
+      createCanvas(window.innerWidth, window.innerHeight);
+
+			let c = rc();
+			fill(c);
     }
 
     function draw() {
       background(220);
       ellipse(mouseX, mouseY, 80, 80);
     }
+
+		function rc() {
+			return color(random(255), random(255), random(255));
+		}
   `;
 
 </script>
 
-Boi
-<P5Renderer {sketch} />
+<P5Renderer {sketch} {width} {height}/>
 
 <style>
 	/* CSS styles go here */

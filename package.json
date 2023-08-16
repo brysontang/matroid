@@ -29,6 +29,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"inter-ui": "^3.19.3",
 		"p5": "^1.7.0",
 		"p5js-renderer-svelte": "^0.0.3"
 	}
