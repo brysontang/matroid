@@ -3,12 +3,16 @@
 </script>
 
 <nav>
-  <div class='brand'>
-    matroid
+  <div>
+    <a href='/' class='brand'>
+      matroid
+    </a>
   </div>
 
   <div>
-    <PlusIcon />
+    <a href='/create'>
+      <PlusIcon />
+    </a>
   </div>
 </nav>
 
@@ -28,5 +32,7 @@
   .brand {
     font-size: 2em;
     font-weight: bold;
+    text-decoration: none;
+    color: #fff;
   }
 </style>
