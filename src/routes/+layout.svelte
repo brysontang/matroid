@@ -16,7 +16,9 @@
   </div>
 </nav>
 
-<slot />
+<div class="content">
+  <slot />
+</div>
 
 <style>
   nav {
@@ -34,5 +36,10 @@
     font-weight: bold;
     text-decoration: none;
     color: #fff;
+  }
+
+  .content {
+    height: calc(100vh - 64px);
+    overflow-y: auto;
   }
 </style>
