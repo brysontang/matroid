@@ -26,7 +26,7 @@
   };
 </script>
 
-<div style="--hue: {hue}">
+<div style="--hue: {hue}; width: 100%">
   <input type="range" min="1" max="360" bind:value={hue} on:input={handleChange} class="slider" />
 </div>
 
