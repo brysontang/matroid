@@ -5,34 +5,56 @@
 
 	let width = 400;
 	let height = 400;
-	let sketch = '';
+	let sketch = `function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(220);
+}`;
 
 	function updateSketch(e) {
 		sketch = e.detail;
 	}
 </script>
 
-<form>
-	<label>
-		Title
-		<input class="input" type="text" name="title" />
-	</label>
+<div class="content">
+	<form>
+		<label>
+			Title
+			<input class="input" type="text" name="title" />
+		</label>
 
-	<label for="colorInput">
-		Color
-		<div class="input">
-			<ColorPicker />
-		</div>
-	</label>
+		<label for="colorInput">
+			Color
+			<div class="input">
+				<ColorPicker />
+			</div>
+		</label>
 
-	<CodeEditor on:update={updateSketch} />
+		<CodeEditor {sketch} on:update={updateSketch} />
+	</form>
+
 	<P5Renderer {sketch} {width} {height} />
-</form>
+</div>
 
 <style>
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
 	.input {
 		width: 300px;
 		display: flex;
 		align-items: center;
+	}
+
+	.content {
+		display: flex;
+		flex-grow: 1;
+		align-items: center;
+		justify-content: space-around;
+		height: calc(100vh - 128px);
 	}
 </style>

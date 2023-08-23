@@ -12,13 +12,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	export let sketch: string = `function setup() {
-  createCanvas(400, 400);
-}
-
-function draw() {
-  background(220);
-}`;
+	export let sketch: string;
 
 	let updatedCode = '';
 
@@ -52,8 +46,10 @@ function draw() {
 	});
 </script>
 
-<button on:click={handleClick}> Run </button>
-<div class="editor" bind:this={editorContainer} />
+<div>
+	<button on:click={handleClick}> Run </button>
+	<div class="editor" bind:this={editorContainer} />
+</div>
 
 <style>
 	/* Style your editor container as needed */

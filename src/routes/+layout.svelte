@@ -1,45 +1,47 @@
 <script>
-  import PlusIcon from "$lib/PlusIcon.svelte";
+	import PlusIcon from '$lib/PlusIcon.svelte';
 </script>
 
 <nav>
-  <div>
-    <a href='/' class='brand'>
-      matroid
-    </a>
-  </div>
+	<div>
+		<a href="/" class="brand"> matroid </a>
+	</div>
 
-  <div>
-    <a href='/create'>
-      <PlusIcon />
-    </a>
-  </div>
+	<div>
+		<a href="/create">
+			<PlusIcon />
+		</a>
+	</div>
 </nav>
 
 <div class="content">
-  <slot />
+	<slot />
 </div>
 
 <style>
-  nav {
-      background: #000;
-      color: #fff;
-      border-bottom-color: #fff;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 64px;
-  }
-  .brand {
-    font-size: 2em;
-    font-weight: bold;
-    text-decoration: none;
-    color: #fff;
-  }
+	nav {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		background: #000;
+		box-sizing: border-box;
+		color: #fff;
+		z-index: 1000;
+		border-bottom-color: #fff;
+		padding: 1rem 2rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 64px;
+	}
+	.brand {
+		font-size: 2em;
+		font-weight: bold;
+		text-decoration: none;
+		color: #fff;
+	}
 
-  .content {
-    height: calc(100vh - 64px);
-    overflow-y: auto;
-  }
+	.content {
+	}
 </style>
