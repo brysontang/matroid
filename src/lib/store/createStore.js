@@ -1,9 +1,7 @@
 import { writable } from 'svelte/store';
 
 const intitalState = {
-	hue: -1,
-	title: '',
-	script: ''
+	hue: -1
 };
 
 const { subscribe, set, update } = writable(intitalState);

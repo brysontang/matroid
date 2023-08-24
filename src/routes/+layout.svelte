@@ -1,5 +1,12 @@
-<script>
+<script lang="ts">
 	import PlusIcon from '$lib/PlusIcon.svelte';
+	import { onMount } from 'svelte';
+
+	let publicKey: string;
+
+	onMount(async () => {
+		publicKey = await window.nostr.getPublicKey();
+	});
 </script>
 
 <nav>

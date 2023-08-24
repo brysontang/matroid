@@ -33,6 +33,7 @@
 		"@types/codemirror": "^5.60.8",
 		"codemirror": "^6.0.1",
 		"inter-ui": "^3.19.3",
+		"nostr-tools": "^1.14.2",
 		"p5": "^1.7.0",
 		"p5js-renderer-svelte": "^0.0.3"
 	}
