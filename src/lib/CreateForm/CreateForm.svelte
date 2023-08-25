@@ -3,6 +3,8 @@
 	import CodeEditor from '$lib/CreateForm/CodeEditor.svelte';
 	import { P5Renderer } from 'p5js-renderer-svelte';
 
+	import * as chroma from 'chroma-js';
+
 	import { validateEvent, verifySignature, SimplePool } from 'nostr-tools';
 
 	let width = 400;
@@ -29,11 +31,17 @@ function draw() {
 		// @ts-ignore
 		let pubkey = await window.nostr.getPublicKey();
 
+		// Turn hue into hex
+		let color = chroma.hsl(post.hue, 0.4, 0.5).hex();
+
 		let event = {
-			kind: 1,
+			kind: 128,
 			created_at: Math.floor(Date.now() / 1000),
-			tags: [],
-			content: post.title,
+			content: {
+				title: post.title,
+				sketch: post.sketch
+			},
+			tags: [['c', color]],
 			pubkey
 		};
 

@@ -12,6 +12,7 @@
 <nav>
 	<div>
 		<a href="/" class="brand"> matroid </a>
+		{publicKey}
 	</div>
 
 	<div>

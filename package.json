@@ -14,6 +14,7 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
+		"@types/chroma-js": "^2.4.0",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
 		"eslint": "^8.28.0",
@@ -31,10 +32,11 @@
 	"dependencies": {
 		"@codemirror/lang-javascript": "^6.1.9",
 		"@types/codemirror": "^5.60.8",
+		"chroma-js": "^2.4.2",
 		"codemirror": "^6.0.1",
 		"inter-ui": "^3.19.3",
 		"nostr-tools": "^1.14.2",
 		"p5": "^1.7.0",
-		"p5js-renderer-svelte": "^0.0.3"
+		"p5js-renderer-svelte": "0.0.4"
 	}
 }
