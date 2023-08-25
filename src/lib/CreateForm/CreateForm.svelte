@@ -37,10 +37,10 @@ function draw() {
 		let event = {
 			kind: 128,
 			created_at: Math.floor(Date.now() / 1000),
-			content: {
+			content: JSON.stringify({
 				title: post.title,
 				sketch: post.sketch
-			},
+			}),
 			tags: [['c', color]],
 			pubkey
 		};

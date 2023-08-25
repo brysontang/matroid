@@ -2,6 +2,9 @@
 	// @ts-ignore
 	import { P5Renderer } from 'p5js-renderer-svelte';
 
+	import { SimplePool } from 'nostr-tools';
+	import { onMount } from 'svelte';
+
 	let width = 100;
 	let height = 100;
 	let sketch = `
@@ -22,9 +25,19 @@
 		}
   `;
 
+	let feed = [];
+
+	onMount(async () => {
+		let relayObject = await window.nostr.getRelays();
+		let relays = Object.keys(relayObject);
+
+		const pool = new SimplePool();
+
+		feed = await pool.list(relays, [{ kinds: [128] }]);
+	});
 </script>
 
-<P5Renderer {sketch} {width} {height}/>
+<P5Renderer {sketch} {width} {height} />
 
 <style>
 	/* CSS styles go here */
