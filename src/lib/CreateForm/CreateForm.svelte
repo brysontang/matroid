@@ -5,12 +5,12 @@
 
 	import * as chroma from 'chroma-js';
 
-	import { validateEvent, verifySignature, SimplePool } from 'nostr-tools';
+	import { nostrCreate } from '$lib/api/nostr';
 
 	let width = 400;
 	let height = 400;
 	let sketch = `function setup() {
-  createCanvas(400, 400);
+	createCanvas(window.innerWidth, window.innerHeight);
 }
 
 function draw() {
@@ -28,41 +28,17 @@ function draw() {
 	}
 
 	async function createPost() {
-		// @ts-ignore
-		let pubkey = await window.nostr.getPublicKey();
-
 		// Turn hue into hex
 		let color = chroma.hsl(post.hue, 0.4, 0.5).hex();
 
-		let event = {
-			kind: 128,
-			created_at: Math.floor(Date.now() / 1000),
-			content: JSON.stringify({
+		await nostrCreate(
+			128,
+			JSON.stringify({
 				title: post.title,
 				sketch: post.sketch
 			}),
-			tags: [['c', color]],
-			pubkey
-		};
-
-		// @ts-ignore
-		let signedEvent = await window.nostr.signEvent(event);
-
-		let valid = validateEvent(signedEvent);
-		let verified = verifySignature(signedEvent);
-
-		if (!valid || !verified) {
-			console.log('invalid event');
-			return;
-		}
-
-		// @ts-ignore
-		let relayObject = await window.nostr.getRelays();
-		let relays = Object.keys(relayObject);
-
-		const pool = new SimplePool();
-
-		let pubs = pool.publish(relays, signedEvent);
+			[['c', color]]
+		);
 	}
 </script>
 

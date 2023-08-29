@@ -21,6 +21,5 @@
 		background-color: var(--bg-color);
 		height: calc(100vh - 64px);
 		transition: background-color 0.3s;
-		margin-top: 64px;
 	}
 </style>

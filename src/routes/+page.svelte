@@ -1,43 +1,24 @@
-<script>
+<script lang="ts">
 	// @ts-ignore
-	import { P5Renderer } from 'p5js-renderer-svelte';
+	import FeedItem from '$lib/FeedItem/FeedItem.svelte';
 
-	import { SimplePool } from 'nostr-tools';
 	import { onMount } from 'svelte';
+	import { nostrGet } from '$lib/api/nostr';
 
-	let width = 100;
-	let height = 100;
-	let sketch = `
-    function setup() {
-      createCanvas(window.innerWidth, window.innerHeight);
-
-			let c = rc();
-			fill(c);
-    }
-
-    function draw() {
-      background(220);
-      ellipse(mouseX, mouseY, 80, 80);
-    }
-
-		function rc() {
-			return color(random(255), random(255), random(255));
-		}
-  `;
-
-	let feed = [];
+	let feed: any = [];
 
 	onMount(async () => {
-		let relayObject = await window.nostr.getRelays();
-		let relays = Object.keys(relayObject);
-
-		const pool = new SimplePool();
-
-		feed = await pool.list(relays, [{ kinds: [128] }]);
+		feed = await nostrGet([{ kinds: [128] }]);
 	});
 </script>
 
-<P5Renderer {sketch} {width} {height} />
+<div id="feed-page-content">
+	{#each feed as event}
+		<div>
+			<FeedItem {event} />
+		</div>
+	{/each}
+</div>
 
 <style>
 	/* CSS styles go here */
@@ -46,5 +27,10 @@
 		padding: 1em;
 		max-width: 240px;
 		margin: 0 auto;
+		color: 'white';
+	}
+
+	#feed-page-content {
+		color: white;
 	}
 </style>

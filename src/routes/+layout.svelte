@@ -12,7 +12,9 @@
 <nav>
 	<div>
 		<a href="/" class="brand"> matroid </a>
-		{publicKey}
+		<a href="/profile" class="profile">
+			{publicKey}
+		</a>
 	</div>
 
 	<div>
@@ -36,20 +38,27 @@
 		box-sizing: border-box;
 		color: #fff;
 		z-index: 1000;
-		border-bottom-color: #fff;
+		border-bottom: solid #fff;
 		padding: 1rem 2rem;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		height: 64px;
 	}
+
+	.content {
+		padding-top: 64px;
+	}
+
+	.profile {
+		text-decoration: none;
+		color: #fff;
+	}
+
 	.brand {
 		font-size: 2em;
 		font-weight: bold;
 		text-decoration: none;
 		color: #fff;
-	}
-
-	.content {
 	}
 </style>
