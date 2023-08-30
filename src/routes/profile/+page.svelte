@@ -1,10 +1,14 @@
 <script lang="ts">
-	import { nostrCreate } from '$lib/api/nostr';
+	import { updateUser } from '$lib/api/nostr';
 
 	let username: string = '';
 
 	async function updateUserName() {
-		await nostrCreate(0, JSON.stringify({ name: username }), []);
+		const metadata = {
+			name: username
+		};
+
+		await updateUser(metadata);
 	}
 </script>
 

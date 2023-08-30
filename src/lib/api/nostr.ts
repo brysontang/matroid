@@ -10,8 +10,7 @@ export const nostrGet = async (params) => {
 	return events;
 };
 
-export const nostrCreate = async (kind, content, tags) => {
-	// @ts-ignore
+export const nostrCreate = async (kind: number, content: string, tags: string[][]) => {
 	const pubkey = await window.nostr.getPublicKey();
 
 	const event = {
@@ -32,11 +31,42 @@ export const nostrCreate = async (kind, content, tags) => {
 		return;
 	}
 
-	// @ts-ignore
 	const relayObject = await window.nostr.getRelays();
 	const relays = Object.keys(relayObject);
 
 	const pool = new SimplePool();
 
 	pool.publish(relays, signedEvent);
+};
+
+export const getNostrPosts = async () => {
+	const feed = await nostrGet([{ kinds: [128] }]);
+	return feed;
+};
+
+export const getAuthorName = async (pubkey: string) => {
+	const metadata = await nostrGet([{ kinds: [0], authors: [pubkey] }]);
+	if (metadata.length === 0) return pubkey;
+
+	const content = metadata[0].content;
+	return JSON.parse(content).name;
+};
+
+interface Post {
+	title: string;
+	sketch: string;
+}
+
+export const createP5Post = async (body: Post, color: string) => {
+	await nostrCreate(128, JSON.stringify(body), [['c', color]]);
+};
+
+interface Metadata {
+	name: string;
+	about?: string;
+	picture?: string;
+}
+
+export const updateUser = async (metadata: Metadata) => {
+	await nostrCreate(0, metadata, []);
 };

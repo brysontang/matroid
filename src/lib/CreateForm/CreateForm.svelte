@@ -5,7 +5,7 @@
 
 	import * as chroma from 'chroma-js';
 
-	import { nostrCreate } from '$lib/api/nostr';
+	import { createP5Post } from '$lib/api/nostr';
 
 	let width = 400;
 	let height = 400;
@@ -29,16 +29,13 @@ function draw() {
 
 	async function createPost() {
 		// Turn hue into hex
-		let color = chroma.hsl(post.hue, 0.4, 0.5).hex();
+		const color = chroma.hsl(post.hue, 0.4, 0.5).hex();
+		const body = {
+			title: post.title,
+			sketch: post.sketch
+		};
 
-		await nostrCreate(
-			128,
-			JSON.stringify({
-				title: post.title,
-				sketch: post.sketch
-			}),
-			[['c', color]]
-		);
+		await createP5Post(body, color);
 	}
 </script>
 

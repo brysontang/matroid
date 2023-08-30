@@ -3,12 +3,12 @@
 	import FeedItem from '$lib/FeedItem/FeedItem.svelte';
 
 	import { onMount } from 'svelte';
-	import { nostrGet } from '$lib/api/nostr';
+	import { getNostrPosts } from '$lib/api/nostr';
 
 	let feed: any = [];
 
 	onMount(async () => {
-		feed = await nostrGet([{ kinds: [128] }]);
+		feed = await getNostrPosts();
 	});
 </script>
 
