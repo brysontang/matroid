@@ -44,12 +44,12 @@ export const getNostrPosts = async () => {
 	return feed;
 };
 
-export const getAuthorName = async (pubkey: string) => {
+export const getAuthorMetaData = async (pubkey: string) => {
 	const metadata = await nostrGet([{ kinds: [0], authors: [pubkey] }]);
 	if (metadata.length === 0) return pubkey;
 
 	const content = metadata[0].content;
-	return JSON.parse(content).name;
+	return JSON.parse(content);
 };
 
 interface Post {
@@ -68,5 +68,5 @@ interface Metadata {
 }
 
 export const updateUser = async (metadata: Metadata) => {
-	await nostrCreate(0, metadata, []);
+	await nostrCreate(0, JSON.stringify(metadata), []);
 };

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import PostComponent from '$lib/FeedItem/PostComponent.svelte';
-	import { getAuthorName } from '$lib/api/nostr';
+	import { getAuthorMetaData } from '$lib/api/nostr';
 
 	interface Post {
 		title: string;
@@ -13,7 +13,7 @@
 	export let event: any;
 
 	onMount(async () => {
-		post.author = await getAuthorName(event.pubkey);
+		post.author = await getAuthorMetaData(event.pubkey);
 	});
 
 	function getTag(tags: string[][], tag: string) {
