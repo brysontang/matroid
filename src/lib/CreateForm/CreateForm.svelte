@@ -11,20 +11,28 @@
 	let height = 400;
 	let sketch = `function setup() {
 	createCanvas(window.innerWidth, window.innerHeight);
+
+	randomSeed(seed);
+	noiseSeed(seed);
 }
 
 function draw() {
-  background(220);
+	background(220);
 }`;
 
 	let post = {
 		title: '',
 		hue: Math.floor(Math.random() * 360) + 1,
-		sketch
+		sketch,
+		seed: Math.floor(Math.random() * 100000)
 	};
 
 	function updateSketch(e) {
 		post.sketch = e.detail;
+	}
+
+	function randomSeed() {
+		post.seed = Math.floor(Math.random() * 100000);
 	}
 
 	async function createPost() {
@@ -32,7 +40,8 @@ function draw() {
 		const color = chroma.hsl(post.hue, 0.4, 0.5).hex();
 		const body = {
 			title: post.title,
-			sketch: post.sketch
+			sketch: post.sketch,
+			seeds: [post.seed]
 		};
 
 		await createP5Post(body, color);
@@ -44,6 +53,11 @@ function draw() {
 		<label>
 			Title
 			<input class="input" type="text" name="title" bind:value={post.title} />
+		</label>
+
+		<label>
+			Seed
+			<input class="input" type="number" name="seed" bind:value={post.seed} />
 		</label>
 
 		<label for="colorInput">
@@ -58,7 +72,9 @@ function draw() {
 		<button type="submit" on:click={createPost}>Create</button>
 	</form>
 
-	<P5Renderer sketch={post.sketch} {width} {height} />
+	<P5Renderer title={post.title} sketch={post.sketch} {width} {height} seed={post.seed} />
+
+	<button class="random-button" on:click={randomSeed}> ξ </button>
 </div>
 
 <style>
@@ -79,5 +95,19 @@ function draw() {
 		align-items: center;
 		justify-content: space-around;
 		height: calc(100vh - 128px);
+	}
+
+	.random-button {
+		position: fixed;
+		bottom: 16px;
+		right: 16px;
+		width: 64px;
+		height: 64px;
+		border-radius: 50%;
+		border: none;
+		background-color: #000;
+		color: #fff;
+		font-size: 32px;
+		cursor: pointer;
 	}
 </style>

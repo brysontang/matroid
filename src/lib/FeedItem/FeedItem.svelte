@@ -28,6 +28,7 @@
 	let content = JSON.parse(event.content);
 	let post: Post = {
 		...content,
+		publicKey: event.pubkey,
 		color: getTag(event.tags, 'c')
 	};
 </script>

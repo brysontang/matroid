@@ -55,6 +55,7 @@ export const getAuthorMetaData = async (pubkey: string) => {
 interface Post {
 	title: string;
 	sketch: string;
+	seeds: number[];
 }
 
 export const createP5Post = async (body: Post, color: string) => {
