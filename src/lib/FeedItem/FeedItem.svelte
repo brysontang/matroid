@@ -6,8 +6,10 @@
 	interface Post {
 		title: string;
 		sketch: string;
+		publicKey: string;
 		color: string;
-		author: string;
+		author: Record<string, string>;
+		seeds: number[];
 	}
 
 	export let event: any;

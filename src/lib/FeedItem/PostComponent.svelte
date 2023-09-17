@@ -7,6 +7,7 @@
 		publicKey: string;
 		sketch: string;
 		color: string;
+		seeds: number[];
 	}
 
 	export let post: Post;
@@ -16,18 +17,24 @@
 
 <div class="post">
 	<div class="header">
-		{#if post.author && post.author.picture}
+		<!-- {#if post.author && post.author.picture}
 			<img src={post.author.picture} alt={'profile picture for ' + username} />
 		{:else}
 			<img src="https://picsum.photos/300/300" alt="default image" />
-		{/if}
+		{/if} -->
 
 		<div class="header-text">
 			<span class="title">{post.title}</span>
 			<span>{username}</span>
 		</div>
 	</div>
-	<P5Renderer sketch={post.sketch} width={300} height={300} />
+	<P5Renderer
+		title={post.title}
+		sketch={post.sketch}
+		width={400}
+		height={400}
+		seed={post.seeds[0]}
+	/>
 </div>
 
 <style>

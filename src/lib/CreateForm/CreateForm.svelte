@@ -68,11 +68,12 @@ function draw() {
 		</label>
 
 		<CodeEditor sketch={post.sketch} on:update={updateSketch} />
-
-		<button type="submit" on:click={createPost}>Create</button>
 	</form>
 
-	<P5Renderer title={post.title} sketch={post.sketch} {width} {height} seed={post.seed} />
+	<div class="right-content">
+		<P5Renderer title={post.title} sketch={post.sketch} {width} {height} seed={post.seed} />
+		<button type="submit" on:click={createPost}>Create</button>
+	</div>
 
 	<button class="random-button" on:click={randomSeed}> ξ </button>
 </div>
@@ -95,6 +96,15 @@ function draw() {
 		align-items: center;
 		justify-content: space-around;
 		height: calc(100vh - 128px);
+	}
+
+	.right-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 16px;
+		height: 100%;
 	}
 
 	.random-button {
