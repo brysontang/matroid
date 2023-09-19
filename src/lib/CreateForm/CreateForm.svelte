@@ -119,5 +119,17 @@ function draw() {
 		color: #fff;
 		font-size: 32px;
 		cursor: pointer;
+		transition: 0.2s;
+		box-shadow: 5px 5px rgba(255, 255, 255);
+	}
+
+	.random-button:hover {
+		background-color: #111;
+		box-shadow: 3px 3px rgba(255, 255, 255);
+	}
+
+	.random-button:active {
+		background-color: #222;
+		box-shadow: 1px 1px rgba(255, 255, 255);
 	}
 </style>

@@ -1,6 +1,7 @@
 import { SimplePool, validateEvent, verifySignature } from 'nostr-tools';
+import type { Filter } from 'nostr-tools';
 
-export const nostrGet = async (params) => {
+export const nostrGet = async (params: Filter[]) => {
 	const relayObject = await window.nostr.getRelays();
 	const relays = Object.keys(relayObject);
 
@@ -10,15 +11,15 @@ export const nostrGet = async (params) => {
 	return events;
 };
 
-export const nostrCreate = async (kind: number, content: string, tags: string[][]) => {
+export const nostrCreate = async (kind: number, tags: string[][], content: string) => {
 	const pubkey = await window.nostr.getPublicKey();
 
 	const event = {
-		kind,
+		pubkey,
 		created_at: Math.floor(Date.now() / 1000),
-		content,
+		kind,
 		tags,
-		pubkey
+		content
 	};
 
 	const signedEvent = await window.nostr.signEvent(event);
@@ -59,7 +60,7 @@ interface Post {
 }
 
 export const createP5Post = async (body: Post, color: string) => {
-	await nostrCreate(128, JSON.stringify(body), [['c', color]]);
+	await nostrCreate(128, [['c', color]], JSON.stringify(body));
 };
 
 interface Metadata {
@@ -69,5 +70,5 @@ interface Metadata {
 }
 
 export const updateUser = async (metadata: Metadata) => {
-	await nostrCreate(0, JSON.stringify(metadata), []);
+	await nostrCreate(0, [], JSON.stringify(metadata));
 };

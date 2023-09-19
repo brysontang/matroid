@@ -70,17 +70,17 @@
 		border: none;
 		cursor: pointer;
 		transition: 0.2s;
-		box-shadow: 5px 5px rgba(0, 0, 0, 0.75);
+		box-shadow: 5px 5px rgba(0, 0, 0);
 	}
 
 	.random-button:hover {
 		background-color: #e0e0e0;
-		box-shadow: 3px 3px rgba(0, 0, 0, 0.75);
+		box-shadow: 3px 3px rgba(0, 0, 0);
 	}
 
 	.random-button:active {
 		background-color: #d0d0d0;
-		box-shadow: 1px 1px rgba(0, 0, 0, 0.75);
+		box-shadow: 1px 1px rgba(0, 0, 0);
 	}
 
 	.random-button-container {
