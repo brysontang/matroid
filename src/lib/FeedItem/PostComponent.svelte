@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { isVisible } from '$lib/util/isVisible';
 	import { P5Renderer } from 'p5js-renderer-svelte';
+	import { onMount } from 'svelte';
 
 	interface Post {
 		title: string;
@@ -12,6 +14,8 @@
 	}
 
 	export let post: Post;
+	let inView = false;
+	let div: HTMLDivElement;
 
 	let formattedDate: string;
 	$: if (post && post.createdAt) {
@@ -30,6 +34,20 @@
 	function randomSeed() {
 		seed = Math.floor(Math.random() * 100000);
 	}
+
+	onMount(() => {
+		const handleVisible = (event: CustomEvent) => {
+			console.log('Visible event triggered!', post.title, event.detail);
+			inView = event.detail.inView;
+		};
+
+		// Forgive me typescript gods
+		(div as any).addEventListener('visible', handleVisible);
+
+		return () => {
+			(div as any).removeEventListener('visible', handleVisible);
+		};
+	});
 </script>
 
 <div class="post">
@@ -41,7 +59,13 @@
 	</div>
 
 	<div class="post-section">
-		<P5Renderer title={post.title} sketch={post.sketch} width={400} height={400} {seed} />
+		<div use:isVisible={{ threshold: 0 }} bind:this={div}>
+			{#if inView}
+				<P5Renderer title={post.title} sketch={post.sketch} width={400} height={400} {seed} />
+			{:else}
+				<div style="width: 400px; height: 400px; background-color: #f0f0f0; border-radius: 10px;" />
+			{/if}
+		</div>
 		<div class="random-button-container">
 			<button class="random-button" on:click={randomSeed}> ξ </button>
 		</div>

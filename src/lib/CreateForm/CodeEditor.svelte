@@ -55,6 +55,8 @@
 	/* Style your editor container as needed */
 	.editor {
 		height: 300px;
+		max-height: 300px;
+		overflow-y: auto;
 		width: 500px;
 		border: 1px solid #ddd;
 		background: #fff;

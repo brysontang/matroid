@@ -1,6 +1,16 @@
 import { SimplePool, validateEvent, verifySignature } from 'nostr-tools';
 import type { Filter } from 'nostr-tools';
 
+declare global {
+	interface Window {
+		nostr: {
+			getPublicKey: () => Promise<string>;
+			signEvent: (event: any) => Promise<any>;
+			getRelays: () => Promise<any>;
+		};
+	}
+}
+
 export const nostrGet = async (params: Filter[]) => {
 	const relayObject = await window.nostr.getRelays();
 	const relays = Object.keys(relayObject);
