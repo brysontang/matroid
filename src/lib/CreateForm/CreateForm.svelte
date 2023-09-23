@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import ColorPicker from '$lib/CreateForm/ColorPicker.svelte';
 	import CodeEditor from '$lib/CreateForm/CodeEditor.svelte';
 	import { P5Renderer } from 'p5js-renderer-svelte';
@@ -27,7 +27,7 @@ function draw() {
 		seed: Math.floor(Math.random() * 100000)
 	};
 
-	function updateSketch(e) {
+	function updateSketch(e: CustomEvent) {
 		post.sketch = e.detail;
 	}
 
