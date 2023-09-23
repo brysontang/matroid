@@ -8,9 +8,20 @@
 		sketch: string;
 		color: string;
 		seeds: number[];
+		createdAt: number;
 	}
 
 	export let post: Post;
+
+	let formattedDate: string;
+	$: if (post && post.createdAt) {
+		let date = new Date(post.createdAt * 1000);
+		formattedDate = date.toLocaleDateString('en-US', {
+			month: 'short',
+			day: 'numeric',
+			year: 'numeric'
+		});
+	}
 
 	$: username = post.author && post.author.name ? post.author.name : post.publicKey;
 
@@ -23,12 +34,6 @@
 
 <div class="post">
 	<div class="header">
-		<!-- {#if post.author && post.author.picture}
-			<img src={post.author.picture} alt={'profile picture for ' + username} />
-		{:else}
-			<img src="https://picsum.photos/300/300" alt="default image" />
-		{/if} -->
-
 		<div class="header-text">
 			<span class="title">{post.title}</span>
 			<span>{username}</span>
@@ -40,6 +45,10 @@
 		<div class="random-button-container">
 			<button class="random-button" on:click={randomSeed}> ξ </button>
 		</div>
+	</div>
+
+	<div class="footer">
+		<span>{formattedDate}</span>
 	</div>
 </div>
 
@@ -85,5 +94,12 @@
 
 	.random-button-container {
 		padding-left: 8px;
+	}
+
+	.footer {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		padding-right: 58px;
 	}
 </style>

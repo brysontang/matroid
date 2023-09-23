@@ -10,6 +10,7 @@
 		color: string;
 		author: Record<string, string>;
 		seeds: number[];
+		createdAt: number;
 	}
 
 	export let event: any;
@@ -26,12 +27,13 @@
 		}
 		return '';
 	}
-
+	console.log('e', event);
 	let content = JSON.parse(event.content);
 	let post: Post = {
 		...content,
 		publicKey: event.pubkey,
-		color: getTag(event.tags, 'c')
+		color: getTag(event.tags, 'c'),
+		createdAt: event.created_at
 	};
 </script>
 
