@@ -50,8 +50,13 @@ export const nostrCreate = async (kind: number, tags: string[][], content: strin
 	pool.publish(relays, signedEvent);
 };
 
-export const getNostrPosts = async () => {
-	const feed = await nostrGet([{ kinds: [128] }]);
+interface Options {
+	authors?: string[];
+	'#c'?: string[];
+}
+
+export const getNostrPosts = async (options: Options) => {
+	const feed = await nostrGet([{ kinds: [128], ...options }]);
 	return feed;
 };
 

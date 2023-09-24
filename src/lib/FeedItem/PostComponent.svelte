@@ -54,7 +54,9 @@
 	<div class="header">
 		<div class="header-text">
 			<span class="title">{post.title}</span>
-			<span>{username}</span>
+			<a href={`/profile/${post.publicKey}`}>
+				<span>{username}</span>
+			</a>
 		</div>
 	</div>
 
