@@ -12,14 +12,14 @@
 
 <nav>
 	<div>
-		<a href="{base}/" class="brand"> matroid </a>
-		<a href="{base}/profile" class="profile">
+		<a href="/" class="brand"> matroid </a>
+		<a href="/profile" class="profile">
 			{publicKey}
 		</a>
 	</div>
 
 	<div>
-		<a href="{base}/create">
+		<a href="/create">
 			<PlusIcon />
 		</a>
 	</div>
