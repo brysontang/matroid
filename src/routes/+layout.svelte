@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import PlusIcon from '$lib/PlusIcon.svelte';
 	import { onMount } from 'svelte';
 
@@ -11,14 +12,14 @@
 
 <nav>
 	<div>
-		<a href="/" class="brand"> matroid </a>
-		<a href="/profile" class="profile">
+		<a href="{base}/" class="brand"> matroid </a>
+		<a href="{base}/profile" class="profile">
 			{publicKey}
 		</a>
 	</div>
 
 	<div>
-		<a href="/create">
+		<a href="{base}/create">
 			<PlusIcon />
 		</a>
 	</div>

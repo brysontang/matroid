@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { isVisible } from '$lib/util/isVisible';
 	import { P5Renderer } from 'p5js-renderer-svelte';
 	import { onMount } from 'svelte';
@@ -54,7 +55,7 @@
 	<div class="header">
 		<div class="header-text">
 			<span class="title">{post.title}</span>
-			<a href={`/profile/${post.publicKey}`}>
+			<a href={`${base}/profile/${post.publicKey}`}>
 				<span>{username}</span>
 			</a>
 		</div>

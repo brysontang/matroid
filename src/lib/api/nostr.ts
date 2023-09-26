@@ -17,6 +17,8 @@ export const nostrGet = async (params: Filter[]) => {
 
 	const pool = new SimplePool();
 
+	relays.push('wss://nostr.matroid.app');
+
 	const events = await pool.list(relays, params);
 	return events;
 };
@@ -55,7 +57,7 @@ interface Options {
 	'#c'?: string[];
 }
 
-export const getNostrPosts = async (options: Options) => {
+export const getNostrPosts = async (options?: Options) => {
 	const feed = await nostrGet([{ kinds: [128], ...options }]);
 	return feed;
 };
