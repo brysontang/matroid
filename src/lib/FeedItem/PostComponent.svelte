@@ -69,8 +69,9 @@
 				<div style="width: 400px; height: 400px; background-color: #f0f0f0; border-radius: 10px;" />
 			{/if}
 		</div>
-		<div class="random-button-container">
+		<div class="button-container">
 			<button class="random-button" on:click={randomSeed}> ξ </button>
+			<button class="like-button" on:click={randomSeed}> ♥ </button>
 		</div>
 	</div>
 
@@ -119,8 +120,33 @@
 		box-shadow: 1px 1px rgba(0, 0, 0);
 	}
 
-	.random-button-container {
+	.like-button {
+		border-radius: 50%;
+		width: 50px;
+		height: 50px;
+		font-size: 30px;
+		background-color: #f0f0f0;
+		border: none;
+		cursor: pointer;
+		transition: 0.2s;
+		box-shadow: 5px 5px rgba(0, 0, 0);
+	}
+
+	.like-button:hover {
+		background-color: #ffb5d0;
+		box-shadow: 3px 3px rgba(0, 0, 0);
+	}
+
+	.like-button:active {
+		background-color: #f54284;
+		box-shadow: 1px 1px rgba(0, 0, 0);
+	}
+
+	.button-container {
 		padding-left: 8px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
 	}
 
 	.footer {
