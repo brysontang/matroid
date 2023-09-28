@@ -71,7 +71,7 @@
 		</div>
 		<div class="button-container">
 			<button class="random-button" on:click={randomSeed}> ξ </button>
-			<button class="like-button" on:click={randomSeed}> ♥ </button>
+			<button class="like-button" on:click={() => {}}> ♥ </button>
 		</div>
 	</div>
 
