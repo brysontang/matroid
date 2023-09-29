@@ -70,6 +70,11 @@ export const getAuthorMetaData = async (pubkey: string) => {
 	return JSON.parse(content);
 };
 
+export const getLikes = async (id: string) => {
+	const likes = await nostrGet([{ kinds: [7], '#e': [id] }]);
+	return likes;
+};
+
 interface Post {
 	title: string;
 	sketch: string;

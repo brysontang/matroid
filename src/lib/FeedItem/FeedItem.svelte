@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import PostComponent from '$lib/FeedItem/PostComponent.svelte';
-	import { getAuthorMetaData } from '$lib/api/nostr';
+	import { getAuthorMetaData, getLikes } from '$lib/api/nostr';
 
 	interface Post {
 		id: string;
@@ -10,6 +10,7 @@
 		publicKey: string;
 		color: string;
 		author: Record<string, string>;
+		likes: number;
 		seeds: number[];
 		createdAt: number;
 	}
@@ -17,7 +18,22 @@
 	export let event: any;
 
 	onMount(async () => {
-		post.author = await getAuthorMetaData(event.pubkey);
+		const authorPromise = getAuthorMetaData(event.pubkey);
+		const likePromise = getLikes(event.id);
+
+		const [author, likeEvents] = await Promise.all([authorPromise, likePromise]);
+
+		post.author = author;
+
+		let likes = 0;
+		const likeSet = new Set();
+		for (var i = 0; i < likeEvents.length; i++) {
+			if (!likeSet.has(likeEvents[i].pubkey)) {
+				likes++;
+				likeSet.add(likeEvents[i].pubkey);
+			}
+		}
+		post.likes = likes;
 	});
 
 	function getTag(tags: string[][], tag: string) {
