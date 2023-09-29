@@ -4,6 +4,7 @@
 	import { getAuthorMetaData } from '$lib/api/nostr';
 
 	interface Post {
+		id: string;
 		title: string;
 		sketch: string;
 		publicKey: string;
@@ -30,6 +31,7 @@
 	console.log('e', event);
 	let content = JSON.parse(event.content);
 	let post: Post = {
+		id: event.id,
 		...content,
 		publicKey: event.pubkey,
 		color: getTag(event.tags, 'c'),

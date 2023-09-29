@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { base } from '$app/paths';
 	import { isVisible } from '$lib/util/isVisible';
+	import { likePost } from '$lib/api/nostr';
 	import { P5Renderer } from 'p5js-renderer-svelte';
 	import { onMount } from 'svelte';
 
 	interface Post {
+		id: string;
 		title: string;
 		author: Record<string, string>;
 		publicKey: string;
@@ -34,6 +35,10 @@
 
 	function randomSeed() {
 		seed = Math.floor(Math.random() * 100000);
+	}
+
+	function handleLikePost() {
+		likePost(post.publicKey, post.id);
 	}
 
 	onMount(() => {
@@ -71,7 +76,7 @@
 		</div>
 		<div class="button-container">
 			<button class="random-button" on:click={randomSeed}> ξ </button>
-			<button class="like-button" on:click={() => {}}> ♥ </button>
+			<button class="like-button" on:click={handleLikePost}> ♥ </button>
 		</div>
 	</div>
 

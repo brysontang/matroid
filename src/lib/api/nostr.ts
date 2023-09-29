@@ -90,9 +90,9 @@ export const updateUser = async (metadata: Metadata) => {
 	await nostrCreate(0, [], JSON.stringify(metadata));
 };
 
-export const likePost = async (pubkey: string, liked: string) => {
+export const likePost = async (pubkey: string, likedId: string) => {
 	const tags = [];
-	tags.push(['e', liked]);
+	tags.push(['e', likedId]);
 	tags.push(['p', pubkey]);
 
 	await nostrCreate(7, tags, '+');
