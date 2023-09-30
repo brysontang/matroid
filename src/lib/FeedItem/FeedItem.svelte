@@ -44,7 +44,7 @@
 		}
 		return '';
 	}
-	console.log('e', event);
+
 	let content = JSON.parse(event.content);
 	let post: Post = {
 		id: event.id,

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { isVisible } from '$lib/util/isVisible';
 	import { likePost } from '$lib/api/nostr';
+	import Button from '$lib/Button/Button.svelte';
 	import { P5Renderer } from 'p5js-renderer-svelte';
 	import { onMount } from 'svelte';
 
@@ -76,8 +77,9 @@
 			{/if}
 		</div>
 		<div class="button-container">
-			<button class="random-button" on:click={randomSeed}> ξ </button>
-			<button class="like-button" on:click={handleLikePost}> ♥ </button>
+			<Button symbol="ξ" onClick={randomSeed} />
+			<Button symbol="♥" onClick={handleLikePost} />
+			<Button symbol="⚡" onClick={() => {}} />
 		</div>
 	</div>
 
@@ -102,50 +104,6 @@
 		display: flex;
 		flex-direction: row;
 		align-content: 'start';
-	}
-
-	.random-button {
-		border-radius: 50%;
-		width: 50px;
-		height: 50px;
-		font-size: 30px;
-		background-color: #f0f0f0;
-		border: none;
-		cursor: pointer;
-		transition: 0.2s;
-		box-shadow: 5px 5px rgba(0, 0, 0);
-	}
-
-	.random-button:hover {
-		background-color: #e0e0e0;
-		box-shadow: 3px 3px rgba(0, 0, 0);
-	}
-
-	.random-button:active {
-		background-color: #d0d0d0;
-		box-shadow: 1px 1px rgba(0, 0, 0);
-	}
-
-	.like-button {
-		border-radius: 50%;
-		width: 50px;
-		height: 50px;
-		font-size: 30px;
-		background-color: #f0f0f0;
-		border: none;
-		cursor: pointer;
-		transition: 0.2s;
-		box-shadow: 5px 5px rgba(0, 0, 0);
-	}
-
-	.like-button:hover {
-		background-color: #ffb5d0;
-		box-shadow: 3px 3px rgba(0, 0, 0);
-	}
-
-	.like-button:active {
-		background-color: #f54284;
-		box-shadow: 1px 1px rgba(0, 0, 0);
 	}
 
 	.button-container {

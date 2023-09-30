@@ -6,6 +6,7 @@
 	import * as chroma from 'chroma-js';
 
 	import { createP5Post } from '$lib/api/nostr';
+	import Button from '$lib/Button/Button.svelte';
 
 	let width = 400;
 	let height = 400;
@@ -75,7 +76,7 @@ function draw() {
 		<button type="submit" on:click={createPost}>Create</button>
 	</div>
 
-	<button class="random-button" on:click={randomSeed}> ξ </button>
+	<Button symbol="ξ" onClick={randomSeed} />
 </div>
 
 <style>
