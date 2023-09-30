@@ -2,61 +2,68 @@
 	import { onMount } from 'svelte';
 	import PostComponent from '$lib/FeedItem/PostComponent.svelte';
 	import { getAuthorMetaData, getLikes } from '$lib/api/nostr';
+	import { getTag } from '$lib/util/nostr';
 
-	interface Post {
-		id: string;
-		title: string;
-		sketch: string;
-		publicKey: string;
-		color: string;
-		author: Record<string, string>;
-		likes: number;
-		seeds: number[];
-		createdAt: number;
-	}
+	import type { Post } from '$lib/interfaces/Post';
 
 	export let event: any;
 
+	let post: Post;
+
 	onMount(async () => {
-		const authorPromise = getAuthorMetaData(event.pubkey);
-		const likePromise = getLikes(event.id);
-
-		const [author, likeEvents] = await Promise.all([authorPromise, likePromise]);
-
-		post.author = author;
-
-		let likes = 0;
-		const likeSet = new Set();
-		for (var i = 0; i < likeEvents.length; i++) {
-			if (!likeSet.has(likeEvents[i].pubkey)) {
-				likes++;
-				likeSet.add(likeEvents[i].pubkey);
-			}
+		try {
+			loadPostData();
+		} catch (e) {
+			console.error(e);
 		}
-		post.likes = likes;
 	});
 
-	function getTag(tags: string[][], tag: string) {
-		for (let t of tags) {
-			if (t[0] === tag) {
-				return t[1];
-			}
-		}
-		return '';
+	async function loadPostData() {
+		fillObject();
+
+		const [author, likeEvents] = await Promise.all([
+			getAuthorMetaData(event.pubkey),
+			getLikes(event.id)
+		]);
+
+		assignAuthorToPost(author);
+		calculateAndAssignLikes(likeEvents);
 	}
 
-	let content = JSON.parse(event.content);
-	let post: Post = {
-		id: event.id,
-		...content,
-		publicKey: event.pubkey,
-		color: getTag(event.tags, 'c'),
-		createdAt: event.created_at
-	};
+	function fillObject() {
+		let content = JSON.parse(event.content);
+		post = {
+			id: event.id,
+			...content,
+			publicKey: event.pubkey,
+			color: getTag(event.tags, 'c'),
+			createdAt: event.created_at
+		};
+	}
+
+	function assignAuthorToPost(author: any) {
+		post.author = author;
+	}
+
+	function calculateAndAssignLikes(likeEvents: any) {
+		let likesCount = 0;
+		const uniqueLikers = new Set();
+
+		likeEvents.forEach((likeEvent: any) => {
+			if (!uniqueLikers.has(likeEvent.pubkey)) {
+				likesCount++;
+				uniqueLikers.add(likeEvent.pubkey);
+			}
+		});
+
+		post.likes = likesCount;
+	}
 </script>
 
-<div class="post" style="--bg-color: {post.color}">
-	<PostComponent {post} />
+<div class="post" style="--bg-color: {post?.color}">
+	{#if post}
+		<PostComponent {post} />
+	{/if}
 </div>
 
 <style>

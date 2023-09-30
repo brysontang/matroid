@@ -1,28 +1,20 @@
 <script lang="ts">
 	import { isVisible } from '$lib/util/isVisible';
-	import { likePost } from '$lib/api/nostr';
-	import Button from '$lib/Button/Button.svelte';
 	import { P5Renderer } from 'p5js-renderer-svelte';
 	import { onMount } from 'svelte';
 
-	interface Post {
-		id: string;
-		title: string;
-		author: Record<string, string>;
-		likes: number;
-		publicKey: string;
-		sketch: string;
-		color: string;
-		seeds: number[];
-		createdAt: number;
-	}
+	import type { Post } from '$lib/interfaces/Post';
+	import ButtonGroup from '$lib/FeedItem/ButtonGroup.svelte';
 
 	export let post: Post;
-	let inView = false;
-	let div: HTMLDivElement;
 
+	let div: HTMLDivElement;
 	let formattedDate: string;
-	$: if (post && post.createdAt) {
+
+	let inView = false;
+	let seed = post?.seeds[0];
+
+	$: if (post?.createdAt) {
 		let date = new Date(post.createdAt * 1000);
 		formattedDate = date.toLocaleDateString('en-US', {
 			month: 'short',
@@ -30,22 +22,10 @@
 			year: 'numeric'
 		});
 	}
-
-	$: username = post.author && post.author.name ? post.author.name : post.publicKey;
-
-	let seed = post.seeds[0];
-
-	function randomSeed() {
-		seed = Math.floor(Math.random() * 100000);
-	}
-
-	function handleLikePost() {
-		likePost(post.publicKey, post.id);
-	}
+	$: username = post?.author?.name || post.publicKey;
 
 	onMount(() => {
 		const handleVisible = (event: CustomEvent) => {
-			console.log('Visible event triggered!', post.title, event.detail);
 			inView = event.detail.inView;
 		};
 
@@ -56,6 +36,10 @@
 			(div as any).removeEventListener('visible', handleVisible);
 		};
 	});
+
+	function changeSeed(newSeed: number) {
+		seed = newSeed;
+	}
 </script>
 
 <div class="post">
@@ -76,11 +60,7 @@
 				<div style="width: 400px; height: 400px; background-color: #f0f0f0; border-radius: 10px;" />
 			{/if}
 		</div>
-		<div class="button-container">
-			<Button symbol="ξ" onClick={randomSeed} />
-			<Button symbol="♥" onClick={handleLikePost} />
-			<Button symbol="⚡" onClick={() => {}} />
-		</div>
+		<ButtonGroup {changeSeed} {post} />
 	</div>
 
 	<div class="footer">
@@ -105,14 +85,6 @@
 		flex-direction: row;
 		align-content: 'start';
 	}
-
-	.button-container {
-		padding-left: 8px;
-		display: flex;
-		flex-direction: column;
-		gap: 8px;
-	}
-
 	.footer {
 		display: flex;
 		flex-direction: row;
