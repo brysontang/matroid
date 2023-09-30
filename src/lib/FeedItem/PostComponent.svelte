@@ -46,7 +46,7 @@
 	<div class="header">
 		<div class="header-text">
 			<span class="title">{post.title}</span>
-			<a href={`/profile/${post.publicKey}`}>
+			<a href={`/profile/${post.publicKey}`} class="username">
 				<span>{username}</span>
 			</a>
 		</div>
@@ -75,6 +75,9 @@
 	.header-text {
 		display: flex;
 		flex-direction: column;
+	}
+	.username {
+		text-decoration: none;
 	}
 	.post {
 		display: flex;
