@@ -60,7 +60,7 @@
 				<div style="width: 400px; height: 400px; background-color: #f0f0f0; border-radius: 10px;" />
 			{/if}
 		</div>
-		<ButtonGroup {changeSeed} {post} />
+		<ButtonGroup {changeSeed} {post} {seed} />
 	</div>
 
 	<div class="footer">
@@ -89,6 +89,6 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-end;
-		padding-right: 58px;
+		padding-right: 208px;
 	}
 </style>

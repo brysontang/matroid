@@ -5,6 +5,7 @@
 
 	export let changeSeed: (seed: number) => void;
 	export let post: Post;
+	export let seed: number;
 
 	function randomSeed() {
 		changeSeed(Math.floor(Math.random() * 100000));
@@ -16,9 +17,9 @@
 </script>
 
 <div class="button-container">
-	<Button symbol="ξ" onClick={randomSeed} />
-	<Button symbol="♥" onClick={handleLikePost} />
-	<Button symbol="⚡" onClick={() => {}} />
+	<Button symbol="ξ" pillLabel="Seed" pillValue={String(seed)} onClick={randomSeed} />
+	<Button symbol="♥" pillLabel="Likes" pillValue={String(post?.likes)} onClick={handleLikePost} />
+	<Button symbol="⚡" pillLabel="Zaps" pillValue={'0 sats'} onClick={() => {}} />
 </div>
 
 <style>
