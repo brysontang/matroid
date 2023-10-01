@@ -1,8 +1,8 @@
 <script lang="ts">
 	export let onClick: () => void;
 	export let symbol: string;
-	export let pillLabel: string;
-	export let pillValue: string;
+	export let pillLabel: string = '';
+	export let pillValue: string = '';
 	export let selectColor: string = '#d0d0d0';
 	export let active: boolean = false;
 </script>
@@ -13,7 +13,9 @@
 	{:else}
 		<button class="button active-button"> {symbol} </button>
 	{/if}
-	<div class="pill">{pillLabel}: {pillValue}</div>
+	{#if pillLabel !== '' && pillValue !== ''}
+		<div class="pill">{pillLabel}: {pillValue}</div>
+	{/if}
 </div>
 
 <style>
