@@ -3,10 +3,16 @@
 	export let symbol: string;
 	export let pillLabel: string;
 	export let pillValue: string;
+	export let selectColor: string = '#d0d0d0';
+	export let active: boolean = false;
 </script>
 
-<div class="container">
-	<button class="button" on:click={onClick}> {symbol} </button>
+<div class="container" style="--selectColor: {selectColor};">
+	{#if !active}
+		<button class="button" on:click={onClick}> {symbol} </button>
+	{:else}
+		<button class="button active-button"> {symbol} </button>
+	{/if}
 	<div class="pill">{pillLabel}: {pillValue}</div>
 </div>
 
@@ -33,8 +39,18 @@
 	}
 
 	.button:active {
-		background-color: #d0d0d0;
-		box-shadow: 1px 1px rgba(0, 0, 0);
+		background-color: var(--selectColor);
+		box-shadow: 0px 0px rgba(0, 0, 0);
+	}
+
+	.active-button {
+		background-color: var(--selectColor);
+		box-shadow: 0px 0px rgba(0, 0, 0);
+	}
+
+	.active-button:hover {
+		background-color: var(--selectColor) !important;
+		box-shadow: 3px 3px rgba(0, 0, 0);
 	}
 
 	.pill {
@@ -49,7 +65,7 @@
 		transform: translateX(-20px);
 		box-shadow: 5px 5px rgba(0, 0, 0);
 		z-index: 10;
-		max-with: 100px;
+		max-width: 100px;
 		min-width: 100px;
 		display: flex;
 		align-items: center;

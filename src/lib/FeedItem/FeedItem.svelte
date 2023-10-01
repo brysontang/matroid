@@ -57,6 +57,7 @@
 		});
 
 		post.likes = likesCount;
+		post.likeEvent = likeEvents;
 	}
 </script>
 
