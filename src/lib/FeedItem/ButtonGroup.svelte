@@ -34,6 +34,7 @@
 		onClick={handleLikePost}
 		selectColor="#f54284"
 		active={userHasLiked}
+		disabled={post.likeEvent === undefined}
 	/>
 	<Button symbol="⚡" pillLabel="Zaps" pillValue={'0 sats'} onClick={() => {}} />
 </div>

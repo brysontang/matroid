@@ -5,11 +5,14 @@
 	export let pillValue: string = '';
 	export let selectColor: string = '#d0d0d0';
 	export let active: boolean = false;
+	export let disabled: boolean = false;
 </script>
 
 <div class="container" style="--selectColor: {selectColor};">
-	{#if !active}
+	{#if !active && !disabled}
 		<button class="button" on:click={onClick}> {symbol} </button>
+	{:else if disabled}
+		<button class="button disabled-button" {disabled}> {symbol} </button>
 	{:else}
 		<button class="button active-button"> {symbol} </button>
 	{/if}
@@ -52,6 +55,11 @@
 
 	.active-button:hover {
 		background-color: var(--selectColor) !important;
+		box-shadow: 3px 3px rgba(0, 0, 0);
+	}
+
+	.disabled-button {
+		background-color: #e0e0e0;
 		box-shadow: 3px 3px rgba(0, 0, 0);
 	}
 
