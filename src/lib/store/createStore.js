@@ -1,14 +1,14 @@
 import { writable } from 'svelte/store';
 
-const intitalState = {
+const initialState = {
 	hue: -1
 };
 
-const { subscribe, set, update } = writable(intitalState);
+const { subscribe, set, update } = writable(initialState);
 
 export default {
 	subscribe,
 	set,
 	update,
-	reset: () => set(intitalState)
+	reset: () => set(initialState)
 };
