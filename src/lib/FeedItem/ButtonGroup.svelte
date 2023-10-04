@@ -36,7 +36,7 @@
 		active={userHasLiked}
 		disabled={post.likeEvent === undefined}
 	/>
-	<Button symbol="⚡" pillLabel="Zaps" pillValue={'0 sats'} onClick={() => {}} />
+	<!-- <Button symbol="⚡" pillLabel="Zaps" pillValue={'0 sats'} onClick={() => {}} /> -->
 </div>
 
 <style>
