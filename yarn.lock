@@ -1570,10 +1570,10 @@ p5@^1.7.0:
   resolved "https://registry.npmjs.org/p5/-/p5-1.7.0.tgz"
   integrity sha512-qrbT/44Dwm63ZtOKX/mp61pw+5yj6ijYLOmRv7p6zcfjbo83Vb0gVFEvW0kTLFu7hceWCig0HONo9F1bSlqbsQ==
 
-p5js-renderer-svelte@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/p5js-renderer-svelte/-/p5js-renderer-svelte-0.0.8.tgz#64aede4b6510365ee754f13c9806791478851ac3"
-  integrity sha512-Az4ASyJF0+e4k2PAZiu015PiI/VUGIU9L2NLcKZXoC5r+UIbwbTiAU4udOpmVV9oKCsgmvY+Thwvi47SNX5xxQ==
+p5js-renderer-svelte@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/p5js-renderer-svelte/-/p5js-renderer-svelte-0.0.9.tgz#f8e25934d887d72c3e0bfc3b98d530ab1b9ce318"
+  integrity sha512-O/h63jMxm2O/vKWlsnAN0r4PO6Lh+kd7IIffrd5xtoAJENv12/tk1oSaIt5upXxGFW/6soCsLrwvYmqrNRdhnw==
 
 parent-module@^1.0.0:
   version "1.0.1"

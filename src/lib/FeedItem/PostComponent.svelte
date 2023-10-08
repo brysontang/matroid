@@ -1,17 +1,13 @@
 <script lang="ts">
-	import { isVisible } from '$lib/util/isVisible';
 	import { P5Renderer } from 'p5js-renderer-svelte';
-	import { onMount } from 'svelte';
 
 	import type { Post } from '$lib/interfaces/Post';
 	import ButtonGroup from '$lib/FeedItem/ButtonGroup.svelte';
 
 	export let post: Post;
 
-	let div: HTMLDivElement;
 	let formattedDate: string;
 
-	let inView = false;
 	let seed = post?.seeds[0];
 
 	$: if (post?.createdAt) {
@@ -23,19 +19,6 @@
 		});
 	}
 	$: username = post?.author?.name || post.publicKey;
-
-	onMount(() => {
-		const handleVisible = (event: CustomEvent) => {
-			inView = event.detail.inView;
-		};
-
-		// Forgive me typescript gods
-		(div as any).addEventListener('visible', handleVisible);
-
-		return () => {
-			(div as any).removeEventListener('visible', handleVisible);
-		};
-	});
 
 	function changeSeed(newSeed: number) {
 		seed = newSeed;
@@ -53,13 +36,8 @@
 	</div>
 
 	<div class="post-section">
-		<div use:isVisible={{ threshold: 0 }} bind:this={div}>
-			{#if inView}
-				<P5Renderer title={post.title} sketch={post.sketch} width={400} height={400} {seed} />
-			{:else}
-				<div style="width: 400px; height: 400px; background-color: #f0f0f0; border-radius: 10px;" />
-			{/if}
-		</div>
+		<P5Renderer title={post.title} sketch={post.sketch} width={400} height={400} {seed} />
+
 		<ButtonGroup {changeSeed} {post} {seed} />
 	</div>
 
