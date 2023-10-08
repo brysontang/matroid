@@ -6,7 +6,12 @@
 	let publicKey: string;
 
 	onMount(async () => {
-		publicKey = await window.nostr.getPublicKey();
+		try {
+			publicKey = await window.nostr.getPublicKey();
+		} catch (error) {
+			// TODO: Need to handle this error by maybe showing a message to the user
+			console.log('No nostr plugin found');
+		}
 	});
 </script>
 

@@ -12,8 +12,13 @@ declare global {
 }
 
 export const nostrGet = async (params: Filter[]) => {
-	const relayObject = await window.nostr.getRelays();
-	const relays = Object.keys(relayObject);
+	let relays: any = [];
+	try {
+		const relayObject = await window.nostr.getRelays();
+		relays = Object.keys(relayObject);
+	} catch (e) {
+		console.log('nostr not found');
+	}
 
 	const pool = new SimplePool();
 
@@ -24,6 +29,11 @@ export const nostrGet = async (params: Filter[]) => {
 };
 
 export const nostrCreate = async (kind: number, tags: string[][], content: string) => {
+	if (!window.nostr) {
+		console.log('nostr not found, cannot post');
+		return;
+	}
+
 	const pubkey = await window.nostr.getPublicKey();
 
 	const event = {
