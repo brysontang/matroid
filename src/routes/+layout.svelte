@@ -4,12 +4,12 @@
 	import { onMount } from 'svelte';
 
 	let publicKey: string;
-	let hasNostrPlugin: boolean = false;
+	let grantedPublicKey: boolean = false;
 
 	onMount(async () => {
 		try {
 			publicKey = await window.nostr.getPublicKey();
-			hasNostrPlugin = true;
+			grantedPublicKey = true;
 		} catch (error) {
 			// TODO: Need to handle this error by maybe showing a message to the user
 			console.log('No nostr plugin found');
@@ -20,7 +20,7 @@
 <nav>
 	<div>
 		<a href="/" class="brand"> matroid </a>
-		{#if hasNostrPlugin}
+		{#if grantedPublicKey}
 			<a href="/profile" class="profile">
 				{publicKey}
 			</a>
