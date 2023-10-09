@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { updateUser } from '$lib/api/nostr';
+	import { updateUser, getAuthorMetaData } from '$lib/api/nostr';
+	import { onMount } from 'svelte';
 
 	let username: string = '';
 	let avatar: string = '';
+	let metadata: any;
 
 	async function updateUserName() {
 		const metadata = {
@@ -12,6 +14,18 @@
 
 		await updateUser(metadata);
 	}
+
+	onMount(async () => {
+		try {
+			const publicKey = await window.nostr.getPublicKey();
+			metadata = await getAuthorMetaData(publicKey);
+
+			username = metadata.name;
+			avatar = metadata.picture;
+		} catch (error) {
+			console.log(error);
+		}
+	});
 </script>
 
 <div>
