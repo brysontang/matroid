@@ -1,30 +1,22 @@
 <script lang="ts">
-	import { base } from '$app/paths';
-	import PlusIcon from '$lib/PlusIcon.svelte';
 	import { onMount } from 'svelte';
 
-	let publicKey: string;
-	let grantedPublicKey: boolean = false;
+	import PlusIcon from '$lib/PlusIcon.svelte';
+	import createStore from '$lib/store/createStore.js';
 
-	onMount(async () => {
-		try {
-			publicKey = await window.nostr.getPublicKey();
-			grantedPublicKey = true;
-		} catch (error) {
-			// TODO: Need to handle this error by maybe showing a message to the user
-			console.log('No nostr plugin found');
-		}
+	let pubKey: string;
+
+	createStore.subscribe((value) => {
+		pubKey = value.pubKey;
 	});
 </script>
 
 <nav>
 	<div>
 		<a href="/" class="brand"> matroid </a>
-		{#if grantedPublicKey}
-			<a href="/profile" class="profile">
-				{publicKey}
-			</a>
-		{/if}
+		<a href="/profile" class="profile">
+			{pubKey}
+		</a>
 	</div>
 
 	<div>
