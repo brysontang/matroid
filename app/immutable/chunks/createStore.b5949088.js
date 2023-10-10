@@ -1,0 +1,1 @@
+import{w as o}from"./index.eea44bec.js";const e={hue:-1,pubKey:""},{subscribe:c,set:t,update:s}=o(e);(async()=>{const r=await window.nostr.getPublicKey();s(a=>({...a,pubKey:r}))})();const n={subscribe:c,set:t,update:s,reset:()=>t(e)};export{n as c};
