@@ -2,24 +2,19 @@
 	import { likePost } from '$lib/api/nostr';
 	import Button from '$lib/Button/Button.svelte';
 	import type { Post } from '$lib/interfaces/Post';
-	import { onMount } from 'svelte';
+	import createStore from '$lib/store/createStore.js';
 
 	export let changeSeed: (seed: number) => void;
 	export let post: Post;
 	export let seed: number;
 
-	let publicKey: string;
+	let pubKey: string;
 
-	onMount(async () => {
-		try {
-			publicKey = await window.nostr.getPublicKey();
-		} catch (error) {
-			// TODO: Need to handle this error by maybe showing a message to the user
-			console.log('No nostr plugin found');
-		}
+	createStore.subscribe((value) => {
+		pubKey = value.pubKey;
 	});
 
-	$: userHasLiked = post?.likeEvent?.some((likeEvent) => likeEvent.pubkey === publicKey);
+	$: userHasLiked = post?.likeEvent?.some((likeEvent) => likeEvent.pubkey === pubKey);
 
 	function randomSeed() {
 		changeSeed(Math.floor(Math.random() * 100000));

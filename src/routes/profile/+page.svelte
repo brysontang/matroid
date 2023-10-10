@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { updateUser, getAuthorMetaData } from '$lib/api/nostr';
 	import { onMount } from 'svelte';
+	import createStore from '$lib/store/createStore.js';
 
 	let username: string = '';
 	let avatar: string = '';
 	let metadata: any;
+	let pubKey: string;
 
 	async function updateUserName() {
 		const metadata = {
@@ -15,10 +17,10 @@
 		await updateUser(metadata);
 	}
 
-	onMount(async () => {
+	createStore.subscribe(async (value) => {
+		pubKey = value.pubKey;
 		try {
-			const publicKey = await window.nostr.getPublicKey();
-			metadata = await getAuthorMetaData(publicKey);
+			metadata = await getAuthorMetaData(pubKey);
 
 			username = metadata.name;
 			avatar = metadata.picture;
