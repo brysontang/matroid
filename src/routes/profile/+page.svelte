@@ -7,6 +7,7 @@
 	let avatar: string = '';
 	let metadata: any;
 	let pubKey: string;
+	let loadingAuthor = false;
 
 	async function updateUserName() {
 		const metadata = {
@@ -19,13 +20,17 @@
 
 	createStore.subscribe(async (value) => {
 		pubKey = value.pubKey;
+		if (!pubKey) return;
 		try {
+			loadingAuthor = true;
 			metadata = await getAuthorMetaData(pubKey);
+			loadingAuthor = false;
 
 			username = metadata.name;
 			avatar = metadata.picture;
 		} catch (error) {
 			console.log(error);
+			loadingAuthor = false;
 		}
 	});
 </script>
@@ -33,8 +38,20 @@
 <div>
 	<form class="form-container">
 		<label for="username">Title</label>
-		<input type="text" id="username" name="username" placeholder="username" bind:value={username} />
-		<input type="text" id="avatar" name="avatar" placeholder="avatar" bind:value={avatar} />
+		<input
+			type="text"
+			id="username"
+			name="username"
+			placeholder={loadingAuthor ? 'Loading...' : 'username'}
+			bind:value={username}
+		/>
+		<input
+			type="text"
+			id="avatar"
+			name="avatar"
+			placeholder={loadingAuthor ? 'Loading...' : 'avatar'}
+			bind:value={avatar}
+		/>
 		<button type="submit" on:click={updateUserName}>Submit</button>
 	</form>
 </div>
