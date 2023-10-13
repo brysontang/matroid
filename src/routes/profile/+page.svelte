@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { updateUser, getAuthorMetaData } from '$lib/api/nostr';
-	import { onMount } from 'svelte';
 	import createStore from '$lib/store/createStore.js';
 
 	let username: string = '';

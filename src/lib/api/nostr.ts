@@ -1,5 +1,5 @@
 import { SimplePool, validateEvent, verifySignature } from 'nostr-tools';
-import type { Filter } from 'nostr-tools';
+import type { Filter, Event } from 'nostr-tools';
 
 declare global {
 	interface Window {
@@ -11,7 +11,7 @@ declare global {
 	}
 }
 
-export const nostrGet = async (params: Filter[]) => {
+export const nostrGet = async (params: Filter[]): Promise<Event[]> => {
 	let relays: any = [];
 	try {
 		const relayObject = await window.nostr.getRelays();
@@ -28,7 +28,11 @@ export const nostrGet = async (params: Filter[]) => {
 	return events;
 };
 
-export const nostrCreate = async (kind: number, tags: string[][], content: string) => {
+export const nostrCreate = async (
+	kind: number,
+	tags: string[][],
+	content: string
+): Promise<void> => {
 	if (!window.nostr) {
 		console.log('nostr not found, cannot post');
 		return;
@@ -67,12 +71,12 @@ interface Options {
 	'#c'?: string[];
 }
 
-export const getNostrPosts = async (options?: Options) => {
+export const getNostrPosts = async (options?: Options): Promise<Event[]> => {
 	const feed = await nostrGet([{ kinds: [128], ...options }]);
 	return feed;
 };
 
-export const getAuthorMetaData = async (pubkey: string) => {
+export const getAuthorMetaData = async (pubkey: string): Promise<Event[] | string> => {
 	const metadata = await nostrGet([{ kinds: [0], authors: [pubkey] }]);
 	if (metadata.length === 0) return pubkey;
 
@@ -80,7 +84,7 @@ export const getAuthorMetaData = async (pubkey: string) => {
 	return JSON.parse(content);
 };
 
-export const getLikes = async (id: string) => {
+export const getLikes = async (id: string): Promise<Event[]> => {
 	const likes = await nostrGet([{ kinds: [7], '#e': [id] }]);
 	return likes;
 };
@@ -101,11 +105,11 @@ interface Metadata {
 	picture?: string;
 }
 
-export const updateUser = async (metadata: Metadata) => {
+export const updateUser = async (metadata: Metadata): Promise<void> => {
 	await nostrCreate(0, [], JSON.stringify(metadata));
 };
 
-export const likePost = async (pubkey: string, likedId: string) => {
+export const likePost = async (pubkey: string, likedId: string): Promise<void> => {
 	const tags = [];
 	tags.push(['e', likedId]);
 	tags.push(['p', pubkey]);
