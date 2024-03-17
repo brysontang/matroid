@@ -40,7 +40,6 @@
 		box-sizing: border-box;
 		color: #fff;
 		z-index: 1000;
-		border-bottom: solid #fff;
 		padding: 1rem 2rem;
 		display: flex;
 		justify-content: space-between;
